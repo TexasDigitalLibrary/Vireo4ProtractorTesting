@@ -51,12 +51,14 @@ After that, to create a new submission or resume one in progress, invoke without
 
 > protractor conf.js
 
-This will create a new submission or resume one in progress.  If the most recent submission is complete
-then the program will exit.
+This will create a new submission or resume one in progress.  Currently all actions needed for completing a submission
+are performed except file upload.
 
-As mentioned at the top of the page, this is intended to demo what a protractor test on vireo4 might look like.
-The next work on this project is revising the new vs in progress submission selection, and providing subsequent
-actions for when the current submission has been completed.  This is a work in progress.
+If the most recent submission is complete then the program will exit.
+
+As mentioned above, this is intended to demo what a protractor test on vireo4 might look like and is a work in progress.
+The next work on this project is to automate file upload, revise the new vs in progress submission selection
+and provide subsequent actions for when the current submission has been completed.
 
 
 
