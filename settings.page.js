@@ -1,0 +1,73 @@
+var SettingsPage = function(){
+
+	this.dropdownMenu = element.all(by.css('.dropdown'));
+	this.menuLinks = element.all(by.css('a[role=menuitem]'));
+
+	this.gotoSettings = function(){
+		this.dropdownMenu.click();
+    	this.menuLinks.getText().then(function(text){
+        	console.log("MENU ITEM TEXT "+text);
+    	});
+		this.settings = this.menuLinks.get(4);
+		this.settings.click();
+		browser.sleep(1000);
+		//this.awoMenu = element.all(by.css('.settings-view .ng-scope'));
+		this.awoMenu = element.all(by.tagName('vireo-tab'));
+    	this.awoMenu.getText().then(function(text){
+       		console.log("AWO TEXT "+text);
+    	});
+	};
+
+	this.applicationSettings = function(){
+		this.submissionAvail = element(by.id('submissionAvailability'));
+		this.submissionOpen = element.all(by.css('input[value=Open]'));
+		this.submissionClosed = element.all(by.css('input[value=Closed]'));
+		this.multSubmissionYes = element.all(by.css('input[value=Yes]'));
+		this.multSubmissionNo = element.all(by.css('input[value=No]'));
+
+		//Click on Submission Availability tab
+		this.awoMenu.get(0).click();
+		browser.sleep(1000);
+		this.submissionAvail.click();	
+		browser.sleep(1000);
+
+		//Set 'Submissions are currently:'
+		this.submissionClosed.click();
+		browser.sleep(1000);
+		this.submissionOpen.click();
+		browser.sleep(1000);
+
+		//Set 'Multiple Submissions:'
+		this.multSubmissionNo.click();
+		browser.sleep(1000);
+		this.multSubmissionYes.click();
+		browser.sleep(1000);
+	};
+
+	this.organizationSettings = function(){
+		this.orgNameInput = element(by.css('input[id=sidebox-organization-name]'));
+		this.awoMenu.get(2).click();
+		browser.sleep(1000);
+    	console.log("GOING TO SEND KEYS");
+		this.orgNameInput.click();
+		var orgName = getRandomString(5);
+		this.orgNameInput.sendKeys(orgName);
+		browser.sleep(1000);
+		this.orgNameInput.submit();
+		browser.sleep(1000);
+		return orgName;
+	};
+
+	getRandomString = function(length){
+		var string = '';
+		var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        for (i = 0; i < length; i++) {
+            string += letters.charAt(Math.floor(Math.random() * letters.length));
+        }
+        return string;
+    }
+};
+
+module.exports = SettingsPage;
+
+
