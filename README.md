@@ -20,7 +20,7 @@ In another window start a local copy of vireo.
 
 > mvn clean spring-boot:run 
 
-	(Alternately, change the URL in general.page.js to point to another instance.)
+	(The current code is set to look to http://127.0.0.1:9000. Use a command line parameter to point elsewhere.)
 
 
 Currently protractor is using and has been tested with the chrome browser.  Firefox may also be used.  This choice is made in conf.js
