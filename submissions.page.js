@@ -46,8 +46,8 @@ var SubmissionsPage = function(base_url){
 									console.log("CELL "+trctext);
 								});
 							});
-							//var continueLink = tableBody.all(by.tagName("a"));
-							//continueLink.get(0).click();
+							var continueLink = tableBody.all(by.tagName("a"));
+							continueLink.get(0).click();
 							browser.sleep(1000);
 						});
 						/***/
@@ -62,7 +62,6 @@ var SubmissionsPage = function(base_url){
 									newSubmitButtonList.each(function(btn){
 										btn.getText().then(function(btntext){
 											console.log("BTNS "+btntext);
-//LASTTHINGFRIDAY
 //this can be used for detecting a 'New Submission' button when the only submission in the list is completely submitted
 //need to find way to follow a different path in general when the old submission is complete - return a value or set a global?
 
