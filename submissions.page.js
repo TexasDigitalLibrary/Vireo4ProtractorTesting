@@ -1,4 +1,3 @@
-
 var SubmissionsPage = function(base_url){
 	this.base_url = base_url;
    	this.startYourSubmission = element(by.css('a[href*="submission/new"]'));
