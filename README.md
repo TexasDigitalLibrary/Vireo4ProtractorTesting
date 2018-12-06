@@ -58,7 +58,9 @@ If the most recent submission is complete then the program will exit.
 
 As mentioned above, this is intended to demo what a protractor test on vireo4 might look like and is a work in progress.
 The next work on this project is to automate file upload, revise the new vs in progress submission selection
-and provide subsequent actions for when the current submission has been completed.
+and provide subsequent actions for when the current submission has been completed.  Additionally there are 'expect' assertions
+to be added in select places.
+ 
 
 
 
