@@ -1,32 +1,32 @@
 This project is set up to give a first look at how protractor might be used for testing 
 
 
-#download protractor
+Download protractor
 
 > npm install -g protractor
 
 
-#load necessary files
+Load necessary files
 
 > webdriver-manager update
 
 
-#In one window start the webdriver
+In one window start the webdriver
 
 > webdriver-manager start
 
 
-#In another window start a local copy of vireo.
+In another window start a local copy of vireo.
 
 > mvn clean spring-boot:run 
-	#Alternately, change the URL in general.page.js to point to another instance.
+
+	(Alternately, change the URL in general.page.js to point to another instance.)
 
 
-#Currently protractor is using and has been tested with the chrome browser.  Firefox may also be used.
-#This choice is made in conf.js
+Currently protractor is using and has been tested with the chrome browser.  Firefox may also be used.  This choice is made in conf.js
 
 
-#In a 3rd window start protractor;
+In a 3rd window start protractor;
 > protractor conf.js
 
 	--params.perform=settings
@@ -38,8 +38,8 @@ This project is set up to give a first look at how protractor might be used for 
 		#default: http://127.0.0.1:9000
 
 
-######
-#Run Some Tests
+RUN TESTS
+
 The operation below assumes you are testing a vireo4 instance at the default url of http://127.0.0.1:9000.
 
 If the vireo4 instance you are testing is freshly installed and not open for submissions you will first need to invoke;
