@@ -36,11 +36,11 @@ var SignoutPage = require('./signout.page');
 		});
 	}else{
 		console.log("OPENSETTINGS FALSE");
-/***
 		it('start/resume submissions',function(){
 			x.startResumeSubmissions();
+//			x.enterPersonalData();
 		});
-***/
+/***
 		it('start/resume submissions',function(){
 			submissions.startResumeSubmissions();
 			submissions.enterPersonalData();
@@ -49,10 +49,10 @@ var SignoutPage = require('./signout.page');
 			submissions.enterFileData();
 			submissions.reviewData();
 		});
+***/
 	};
 
 
-	browser.sleep(2000);
 
 	it('should sign out',function(){
 		signout.signout();

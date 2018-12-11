@@ -8,8 +8,6 @@ var SubmissionsPage = function(base_url){
 
 //TANGLED CALLBACK MISERY - FIX LATER
 	this.startResumeSubmissions = function(){
-		var tmpObject = ""; 
-//   		browser.get('http://127.0.0.1:9000');
    		browser.get(this.base_url);
 
    		//this.startYourSubmission = element(by.css('a[href*="submission/new"]'));
@@ -24,18 +22,20 @@ var SubmissionsPage = function(base_url){
 					sp.getText().then(function(spinst){
             			console.log("INST "+spinst);
 					});
+					
 				});
 //CHECK TO SEE THERE ARE INSTITUTIONS TO CHOOSE FROM
 				this.listOfInstitutions.get(0).click();
    				this.submitForm = element(by.tagName('form[name="newSubmission"]'));
    				this.submitForm.all(by.tagName('button')).get(0).click();
-				tmpObject = "new";
-				process.exit();
+				//tmpObject = "new";
+				//process.exit();
 				console.log("START SUBMISSION DONE");
 			}else{
 				console.log("START SUBMISSION NOT HAPPENING");
 			};
 		});
+
 
 		//this.resumeYourSubmission = element(by.css('a[href*="submission/history"]'));
 		this.resumeYourSubmission.isPresent().then(function(present){
@@ -45,21 +45,39 @@ var SubmissionsPage = function(base_url){
         		browser.actions().mouseMove(this.resumeYourSubmission).perform();
 		        browser.executeScript("arguments[0].click();",this.resumeYourSubmission);
 
+				/***
 				var tableBody = element(by.tagName("tbody"));
 				var tableRows = tableBody.all(by.tagName("tr"));
-				/***/
 				tableRows.each(function(tr){
 					var tableRowCol = tr.all(by.tagName("td"));
 					tableRowCol.each(function(trc){
 						trc.getText().then(function(trctext){
 							console.log("CELL "+trctext);
+							if(trctext == 'In Progress'){
+							else if(trctext == 'Submitted'){
+							}
 						});
 					});
-					//var continueLink = tableBody.all(by.tagName("a"));
-					//continueLink.get(0).click();
-					browser.sleep(1000);
+				});
+				//var continueLink = tableBody.all(by.tagName("a"));
+				//continueLink.get(0).click();
+				//browser.sleep(10000);
+				***/
+
+				/***/
+				var buttonList = element.all(by.tagName("button"));
+				buttonList.each(function(btn){
+					btn.getText().then(function(btntext){
+						console.log("BUTTON "+btntext);
+						if(btntext == 'New Submission'){
+							btn.click()
+							browser.sleep(10000);
+						}
+					}.bind(btn));
 				});
 				/***/
+	
+
 				console.log("RESUME SUBMISSION DONE");
 			}else{
 				console.log("RESUME SUBMISSION NOT HAPPENING");
@@ -96,9 +114,13 @@ var SubmissionsPage = function(base_url){
 
 	this.enterPersonalData = function(){
 		/**/
+		console.log("AAAA");
+		browser.sleep(5000);
 		//chained promises seem to work - verify later
 		this.firstName = element(by.name('first_name'));
 		this.firstName.clear().sendKeys("Jethro");
+		browser.sleep(5000);
+		console.log("BBBB");
 		this.lastName = element(by.name('last_name'));
 		this.lastName.clear().sendKeys("Bodine");
 		this.tdCollege = element(by.name('thesis.degree.college'));
