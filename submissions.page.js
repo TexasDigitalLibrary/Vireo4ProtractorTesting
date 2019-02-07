@@ -38,7 +38,7 @@ var SubmissionsPage = function(base_url){
 
 						var tableBody = element(by.tagName("tbody"));
 						var tableRows = tableBody.all(by.tagName("tr"));
-						/***/
+						/***
 						tableRows.each(function(tr){
 							var tableRowCol = tr.all(by.tagName("td"));
 							tableRowCol.each(function(trc){
@@ -50,8 +50,8 @@ var SubmissionsPage = function(base_url){
 							//continueLink.get(0).click();
 							browser.sleep(1000);
 						});
+						***/
 						/***/
-						/***
 						var firstRowLinks = tableRows.get(0).all(by.tagName('a'));
 						firstRowLinks.each(function(frl){
 							frl.getText().then(function(frltext){
@@ -73,7 +73,7 @@ var SubmissionsPage = function(base_url){
 								}
 							}.bind(frl));
 						});
-						***/
+						/***/
 					}else{
 					}
 					console.log("RESUME SUBMISSION DONE");
@@ -99,6 +99,26 @@ var SubmissionsPage = function(base_url){
 		this.tdCollege.clear().sendKeys("Oil and Gas Law");
 		this.tdDept = element(by.name('thesis.degree.department'));
 		this.tdDept.clear().sendKeys("Chemical Engineering");
+
+//		this.tdDeg = element(by.name('thesis.degree.name'));
+//		this.tdDeg.clear().sendKeys("Master of Real Estate");
+/**
+        this.tdDegForm = element(by.id('thesis.degree.name'));
+        this.tdDegFormButton = this.tdDegForm.all(by.tagName('ul'));
+        this.tdDegFormButton.click();
+        browser.sleep(15000);
+        this.tdDegA = this.tdDeg.all(by.tagName('a'));
+        this.tdDegA.each(function(anchor){
+            anchor.getText().then(function(txt){
+                //console.log("ANCHOR TEXT "+txt);
+                if(txt == "Bachelor of Science"){
+                    anchor.click();
+                }
+            }.bind(anchor));
+        });
+**/
+
+
 		this.tdMajor = element(by.name('thesis.degree.major'));
 		this.tdMajor.clear().sendKeys("Petroleum Engineering");
 		this.tdPhoneForm = element(by.id('permanent_phone'));
@@ -281,6 +301,8 @@ var SubmissionsPage = function(base_url){
 		//this.fileUp.sendKeys(absPath);
 ***/		
 
+	//browser.pause();
+	//browser.debugger();
 		this.ContinueButton = element.all(by.tagName('button'));
 		this.ContinueButton.each(function(btn){
 			btn.getText().then(function(txt){
@@ -292,6 +314,7 @@ var SubmissionsPage = function(base_url){
 			}.bind(btn));
 		});
 	};
+
 
 	this.reviewData = function(){
 		this.ContinueButton = element.all(by.tagName('button'));

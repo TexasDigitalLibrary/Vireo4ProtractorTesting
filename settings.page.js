@@ -24,6 +24,7 @@ var SettingsPage = function(){
 		this.submissionClosed = element.all(by.css('input[value=Closed]'));
 		this.multSubmissionYes = element.all(by.css('input[value=Yes]'));
 		this.multSubmissionNo = element.all(by.css('input[value=No]'));
+		this.degreeGrantingSchool = element.all(by.id('grantorValue')).get(1);
 
 		//Click on Submission Availability tab
 		this.awoMenu.get(0).click();
@@ -40,8 +41,16 @@ var SettingsPage = function(){
 		//Set 'Multiple Submissions:'
 		this.multSubmissionNo.click();
 		browser.sleep(1000);
+		//this.multSubmissionYes.count().then(function(count){
+		//		console.log("COUNT "+count);
+		//});
 		this.multSubmissionYes.click();
 		browser.sleep(1000);
+//FSS
+		this.degreeGrantingSchool.click();
+		this.degreeGrantingSchool.clear().sendKeys("Random Degree Granting School");
+		browser.sleep(1000);
+		this.degreeGrantingSchool.submit();
 	};
 
 	this.organizationSettings = function(){
@@ -55,6 +64,32 @@ var SettingsPage = function(){
 		browser.sleep(1000);
 		this.orgNameInput.submit();
 		browser.sleep(1000);
+
+		this.instNameInput = element(by.css('input[placeholder="Name of the organization"]'));
+		this.instNameInput.click();
+		browser.sleep(1000);
+		this.instNameInput.clear().sendKeys("MY INSTITUTION");
+		browser.sleep(1000);
+		//this.instNameInput.submit();
+
+		this.multInstSubmissionYes = element.all(by.css('input[value=Yes]'));
+		this.multInstSubmissionYes.count().then(function(count){
+				console.log("COUNT "+count);
+		});
+		browser.sleep(1000);
+		this.multInstSubmissionYes.click();
+
+        this.SaveButton = element.all(by.tagName('button'));
+        this.SaveButton.each(function(btn){
+            btn.getText().then(function(txt){
+                //console.log("FSS TEXT "+txt);
+                if(txt == "Save"){
+                    btn.click();
+                }
+            }.bind(btn));
+        });
+		browser.sleep(1000);
+
 		return orgName;
 	};
 

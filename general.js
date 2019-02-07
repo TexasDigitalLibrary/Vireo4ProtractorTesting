@@ -7,6 +7,7 @@ var SignoutPage = require('./signout.page');
 
   describe('Sign In', function() {
 	var base_url = "http://127.0.0.1:9000";
+	//var base_url = "https://test-etd.tdl.org";
 	if(browser.params.baseurl!=null){
 		base_url = browser.params.baseurl;
 	}
@@ -35,12 +36,14 @@ var SignoutPage = require('./signout.page');
 			settings.organizationSettings();
 		});
 	}else{
+/***
 		console.log("OPENSETTINGS FALSE");
 		it('start/resume submissions',function(){
 			x.startResumeSubmissions();
 //			x.enterPersonalData();
 		});
-/***
+***/
+/***/
 		it('start/resume submissions',function(){
 			submissions.startResumeSubmissions();
 			submissions.enterPersonalData();
@@ -49,7 +52,7 @@ var SignoutPage = require('./signout.page');
 			submissions.enterFileData();
 			submissions.reviewData();
 		});
-***/
+/***/
 	};
 
 
