@@ -28,7 +28,6 @@ var SignoutPage = require('./signout.page');
 /****/
 	if(browser.params.perform=='settings'){
 		//CHANGE SETTINGS
-		console.log("OPENSETTINGS TRUE");
 		it('should go to settings',function(){
 			settings.gotoSettings();
 		});
@@ -38,7 +37,7 @@ var SignoutPage = require('./signout.page');
 		it('should set organization settings',function(){
 			settings.organizationSettings();
 		});
-	}else{
+	}else{ // if(browser.params.perform=='submission'){
 		//CREATE SUBMISSION
 		it('start/resume submissions',function(){
 			submissions.startResumeSubmissions();
