@@ -6,7 +6,7 @@ var SettingsPage = function(){
 	this.gotoSettings = function(){
 		this.dropdownMenu.click();
     	this.menuLinks.getText().then(function(text){
-        	console.log("MENU ITEM TEXT "+text);
+        	//console.log("MENU ITEM TEXT "+text);
     	});
 		this.settings = this.menuLinks.get(4);
 		this.settings.click();
@@ -14,7 +14,7 @@ var SettingsPage = function(){
 		//this.awoMenu = element.all(by.css('.settings-view .ng-scope'));
 		this.awoMenu = element.all(by.tagName('vireo-tab'));
     	this.awoMenu.getText().then(function(text){
-       		console.log("AWO TEXT "+text);
+       		//console.log("AWO TEXT "+text);
     	});
 	};
 
@@ -24,6 +24,7 @@ var SettingsPage = function(){
 		this.submissionClosed = element.all(by.css('input[value=Closed]'));
 		this.multSubmissionYes = element.all(by.css('input[value=Yes]'));
 		this.multSubmissionNo = element.all(by.css('input[value=No]'));
+		this.degreeGrantingSchool = element.all(by.id('grantorValue')).get(1);
 
 		//Click on Submission Availability tab
 		this.awoMenu.get(0).click();
@@ -40,21 +41,54 @@ var SettingsPage = function(){
 		//Set 'Multiple Submissions:'
 		this.multSubmissionNo.click();
 		browser.sleep(1000);
+		//this.multSubmissionYes.count().then(function(count){
+		//		console.log("COUNT "+count);
+		//});
 		this.multSubmissionYes.click();
 		browser.sleep(1000);
+//FSS
+		this.degreeGrantingSchool.click();
+		this.degreeGrantingSchool.clear().sendKeys("Random Degree Granting School");
+		browser.sleep(1000);
+		this.degreeGrantingSchool.submit();
 	};
 
 	this.organizationSettings = function(){
 		this.orgNameInput = element(by.css('input[id=sidebox-organization-name]'));
 		this.awoMenu.get(2).click();
 		browser.sleep(1000);
-    	console.log("GOING TO SEND KEYS");
 		this.orgNameInput.click();
 		var orgName = getRandomString(5);
 		this.orgNameInput.sendKeys(orgName);
 		browser.sleep(1000);
 		this.orgNameInput.submit();
 		browser.sleep(1000);
+
+		this.instNameInput = element(by.css('input[placeholder="Name of the organization"]'));
+		this.instNameInput.click();
+		browser.sleep(1000);
+		this.instNameInput.clear().sendKeys("MY INSTITUTION");
+		browser.sleep(1000);
+		//this.instNameInput.submit();
+
+		this.multInstSubmissionYes = element.all(by.css('input[value=Yes]'));
+		this.multInstSubmissionYes.count().then(function(count){
+			//console.log("COUNT "+count);
+		});
+		browser.sleep(1000);
+		this.multInstSubmissionYes.click();
+
+        this.SaveButton = element.all(by.tagName('button'));
+        this.SaveButton.each(function(btn){
+            btn.getText().then(function(txt){
+                //console.log("FSS TEXT "+txt);
+                if(txt == "Save"){
+                    btn.click();
+                }
+            }.bind(btn));
+        });
+		browser.sleep(1000);
+
 		return orgName;
 	};
 
