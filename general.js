@@ -18,13 +18,16 @@ var SignoutPage = require('./signout.page');
 	var x = new XPage(base_url);
 	var signout = new SignoutPage(base_url);
 
+//SIGN IN
 	it('should sign in',function(){
 		signin.signin();
         //expect(signin.welcomeMessage.getText()).toContain("Welcome to the Thesis");
         //expect(signin.submissionLink.getText()).toContain("submission");
 	});
 
+/****/
 	if(browser.params.perform=='settings'){
+		//CHANGE SETTINGS
 		console.log("OPENSETTINGS TRUE");
 		it('should go to settings',function(){
 			settings.gotoSettings();
@@ -36,14 +39,7 @@ var SignoutPage = require('./signout.page');
 			settings.organizationSettings();
 		});
 	}else{
-/***
-		console.log("OPENSETTINGS FALSE");
-		it('start/resume submissions',function(){
-			x.startResumeSubmissions();
-//			x.enterPersonalData();
-		});
-***/
-/***/
+		//CREATE SUBMISSION
 		it('start/resume submissions',function(){
 			submissions.startResumeSubmissions();
 			submissions.enterPersonalData();
@@ -52,11 +48,10 @@ var SignoutPage = require('./signout.page');
 			submissions.enterFileData();
 			submissions.reviewData();
 		});
-/***/
 	};
+/****/
 
-
-
+//SIGN OUT
 	it('should sign out',function(){
 		signout.signout();
 		browser.sleep(2000);

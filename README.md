@@ -1,41 +1,60 @@
 This project is set up to give a first look at how protractor might be used for testing 
 
-
+##Get Progractor
 Download protractor
+```
+  npm install -g protractor
+```
 
-> npm install -g protractor
+##Clone this repository into a local directory
+```
+	git clone
+```
 
+##Open a new terminal window.  Update and start the webdriver in one terminal.
 
-Load necessary files
+```
+  webdriver-manager update
+  webdriver-manager start
+```
 
-> webdriver-manager update
+##Open another terminal window to run protractor.
 
-
-In one window start the webdriver
-
-> webdriver-manager start
-
-
-In another window start a local copy of vireo.
-
-> mvn clean spring-boot:run 
-
-	(The current code is set to look to http://127.0.0.1:9000. Use a command line parameter to point elsewhere.)
-
-
-Currently protractor is using and has been tested with the chrome browser.  Firefox may also be used.  This choice is made in conf.js
+Currently protractor is using and has been tested with the chrome browser.
+Firefox may also be used.  This choice is made in conf.js
 
 
-In a 3rd window start protractor;
-> protractor conf.js
 
+```
+  protractor conf.js
+```
+
+```
 	--params.perform=settings
 		#settings: sign in, open vireo for submissions, create a randomly named institution, then sign out
 		#default: create a submission
+```
 
+```
 	--params.baseurl=https://test-etd.tdl.org
 		#set the base url of the vireo4 service
 		#default: http://127.0.0.1:9000
+```
+
+```
+	--params.signin=account
+		#this will trigger a search for a file called *account.json* in the current directory
+		this file should have an email and pwd attributes, for example;
+```
+
+```
+{
+  "email":"[your_email_address]",
+  "pwd":"[your_vireo4_password_for_that_account]"
+}
+```
+		#default is to use test shibboleth account
+
 
 
 RUN TESTS
