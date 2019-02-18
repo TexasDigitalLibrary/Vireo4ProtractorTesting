@@ -6,10 +6,12 @@ Download protractor
   npm install -g protractor
 ```
 
+
 ##Clone this repository into a local directory
 ```
 	git clone
 ```
+
 
 ##Open a new terminal window.  Update and start the webdriver in one terminal.
 
@@ -18,16 +20,20 @@ Download protractor
   webdriver-manager start
 ```
 
+
 ##Open another terminal window to run protractor.
+
 
 Currently protractor is using and has been tested with the chrome browser.
 Firefox may also be used.  This choice is made in conf.js
 
 
 
+
 ```
   protractor conf.js
 ```
+
 
 ```
 	--params.perform=settings
