@@ -2,7 +2,7 @@
 var SigninPage = require('./signin.page');
 var SettingsPage = require('./settings.page');
 var SubmissionsPage = require('./submissions.page');
-var XPage = require('./x.page');
+//var XPage = require('./x.page');
 var SignoutPage = require('./signout.page');
 
   describe('Sign In', function() {
@@ -15,7 +15,7 @@ var SignoutPage = require('./signout.page');
 	var signin = new SigninPage(base_url);
 	var settings = new SettingsPage();
 	var submissions = new SubmissionsPage(base_url);
-	var x = new XPage(base_url);
+//	var x = new XPage(base_url);
 	var signout = new SignoutPage(base_url);
 
 //SIGN IN

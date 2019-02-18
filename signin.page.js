@@ -32,7 +32,7 @@ var SigninPage = function(base_url){
 			browser.executeScript("arguments[0].click();",this.shibButton);
 			browser.sleep(2000);
 		};
-		console.log("SIGNED IN");
+		//console.log("SIGNED IN");
   	};
 };
 module.exports = SigninPage;

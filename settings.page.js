@@ -6,7 +6,7 @@ var SettingsPage = function(){
 	this.gotoSettings = function(){
 		this.dropdownMenu.click();
     	this.menuLinks.getText().then(function(text){
-        	console.log("MENU ITEM TEXT "+text);
+        	//console.log("MENU ITEM TEXT "+text);
     	});
 		this.settings = this.menuLinks.get(4);
 		this.settings.click();
@@ -14,7 +14,7 @@ var SettingsPage = function(){
 		//this.awoMenu = element.all(by.css('.settings-view .ng-scope'));
 		this.awoMenu = element.all(by.tagName('vireo-tab'));
     	this.awoMenu.getText().then(function(text){
-       		console.log("AWO TEXT "+text);
+       		//console.log("AWO TEXT "+text);
     	});
 	};
 
@@ -57,7 +57,6 @@ var SettingsPage = function(){
 		this.orgNameInput = element(by.css('input[id=sidebox-organization-name]'));
 		this.awoMenu.get(2).click();
 		browser.sleep(1000);
-    	console.log("GOING TO SEND KEYS");
 		this.orgNameInput.click();
 		var orgName = getRandomString(5);
 		this.orgNameInput.sendKeys(orgName);
@@ -74,7 +73,7 @@ var SettingsPage = function(){
 
 		this.multInstSubmissionYes = element.all(by.css('input[value=Yes]'));
 		this.multInstSubmissionYes.count().then(function(count){
-				console.log("COUNT "+count);
+			//console.log("COUNT "+count);
 		});
 		browser.sleep(1000);
 		this.multInstSubmissionYes.click();

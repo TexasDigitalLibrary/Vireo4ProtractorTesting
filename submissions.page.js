@@ -19,7 +19,7 @@ var SubmissionsPage = function(base_url){
 				this.listOfInstitutions.each(function(inst){
 					var sp = inst.all(by.tagName("span"));
 					sp.getText().then(function(spinst){
-            			console.log("INST "+spinst);
+            			//console.log("INST "+spinst);
 					});
 				});
 //CHECK TO SEE THERE ARE INSTITUTIONS TO CHOOSE FROM
@@ -31,7 +31,7 @@ var SubmissionsPage = function(base_url){
 				this.resumeYourSubmission = element(by.css('a[href*="submission/history"]'));
 				this.resumeYourSubmission.isPresent().then(function(present){
 					if(present){
-						console.log("RESUME SUBMISSION");
+						//console.log("RESUME SUBMISSION");
 						this.resumeYourSubmission = element(by.css('a[href*="submission/history"]'));
 		        		browser.actions().mouseMove(this.resumeYourSubmission).perform();
 				        browser.executeScript("arguments[0].click();",this.resumeYourSubmission);
@@ -55,17 +55,14 @@ var SubmissionsPage = function(base_url){
 						var firstRowLinks = tableRows.get(0).all(by.tagName('a'));
 						firstRowLinks.each(function(frl){
 							frl.getText().then(function(frltext){
-								console.log("FRL "+frltext);
 								if(frltext == "View"){
-									console.log("THESIS ALREADY SUBMITTED");
+									//console.log("THESIS ALREADY SUBMITTED");
    									var newSubmitButtonList = element.all(by.tagName('button'));
 									newSubmitButtonList.each(function(btn){
 										btn.getText().then(function(btntext){
-											console.log("BTNS "+btntext);
-//LASTTHINGFRIDAY
+											//console.log("BTNS "+btntext);
 //this can be used for detecting a 'New Submission' button when the only submission in the list is completely submitted
 //need to find way to follow a different path in general when the old submission is complete - return a value or set a global?
-
 										});
 									});
 									browser.sleep(1000);
@@ -76,12 +73,11 @@ var SubmissionsPage = function(base_url){
 						/***/
 					}else{
 					}
-					console.log("RESUME SUBMISSION DONE");
+					//console.log("RESUME SUBMISSION DONE");
 				});
 				tmpObject = "resume";
 			}
 		});
-		console.log("TMP "+tmpObject);
 		return tmpObject;
 	},
     function(err){
@@ -138,7 +134,7 @@ var SubmissionsPage = function(base_url){
 			btn.getText().then(function(txt){
 				if(txt == "Continue to License Agreement"){
 					btn.click();
-					console.log("PERSONAL DATA ENTERED");
+					//console.log("PERSONAL DATA ENTERED");
 				}
 			}.bind(btn));
 		});
@@ -146,7 +142,7 @@ var SubmissionsPage = function(base_url){
 	};
 
 	this.enterLicenseData = function(){
-		console.log("LICENCE AGREEMENT");
+		//console.log("LICENCE AGREEMENT");
 
 		/**/
 		this.licenceAgreement = element.all(by.tagName('label'));
@@ -157,9 +153,9 @@ var SubmissionsPage = function(base_url){
 					inp.each(function(iii){
 						iii.isSelected().then(function(issel){
 							if(issel){
-								console.log("LIC IS SELECTED");
+								//console.log("LIC IS SELECTED");
 							}else{
-								console.log("LIC IS NOT SELECTED");
+								//console.log("LIC IS NOT SELECTED");
 								liag.click();
 							}
 						}.bind(liag));
@@ -171,10 +167,9 @@ var SubmissionsPage = function(base_url){
 		this.ContinueButton = element.all(by.tagName('button'));
 		this.ContinueButton.each(function(btn){
 			btn.getText().then(function(txt){
-				//console.log("TEXT "+txt);
 				if(txt == "Continue to Document Information"){
 					btn.click();
-					console.log("LICENSES CHECKED");
+					//console.log("LICENSES CHECKED");
 				}
 			}.bind(btn));
 		});
@@ -182,7 +177,7 @@ var SubmissionsPage = function(base_url){
 	};
 
 	this.enterDocumentData = function(){
-		console.log("DOCUMENT DATA");
+		//console.log("DOCUMENT DATA");
 /*****/
 		this.titleInput = element(by.name('dc.title'));
 		this.titleInput.clear().sendKeys("Stuff I Learned");
@@ -198,12 +193,9 @@ var SubmissionsPage = function(base_url){
 				if(pres){
 				btn.getText().then(function(txt){
 					if(txt == "December"){
-						console.log("TEXT "+txt);
         				browser.actions().mouseMove(btn).perform();
 		       	 		browser.executeScript("arguments[0].click();",btn);
-						//btn.click();
 						browser.sleep(1000);
-						//return;
 					}
 				}.bind(btn));
 				}
@@ -216,7 +208,6 @@ var SubmissionsPage = function(base_url){
 		this.submTypeA = this.submType.all(by.tagName('a'));
 		this.submTypeA.each(function(anchor){
 			anchor.getText().then(function(txt){
-				//console.log("ANCHOR TEXT "+txt);
 				if(txt == "Dissertation"){
 					anchor.click();
 				}
@@ -243,7 +234,6 @@ var SubmissionsPage = function(base_url){
 		this.commChairA = this.commChair.all(by.tagName('a'));
 		this.commChairA.each(function(anchor){
 			anchor.getText().then(function(txt){
-				//console.log("COMM CHAIR TEXT "+txt);
 				if(txt == "Aggie Jack"){
 					anchor.click();
 				}
@@ -264,26 +254,19 @@ var SubmissionsPage = function(base_url){
 
 		this.defaultEmbargos = element(by.id('default_embargos'));
 		this.defaultEmbargosList = this.defaultEmbargos.all(by.tagName('input[type="radio"]'));
-		//this.defaultEmbargosList.each(function(de){
-		//	console.log("DE");
-		//});
 		this.defaultEmbargosList.get(1).click();
 
 		this.proquestEmbargos = element(by.id('proquest_embargos'));
 		this.proquestEmbargosList = this.proquestEmbargos.all(by.tagName('input[type="radio"]'));
-		//this.proquestEmbargosList.each(function(pe){
-		//	console.log("PE");
-		//});
 		this.proquestEmbargosList.get(1).click();
 /*****/
 
 		this.ContinueButton = element.all(by.tagName('button'));
 		this.ContinueButton.each(function(btn){
 			btn.getText().then(function(txt){
-				//console.log("TEXT "+txt);
 				if(txt == "Continue to File Upload"){
 					btn.click();
-					console.log("DOCUMENT DATA ENTERED");
+					//console.log("DOCUMENT DATA ENTERED");
 				}
 			}.bind(btn));
 		});
@@ -301,15 +284,12 @@ var SubmissionsPage = function(base_url){
 		//this.fileUp.sendKeys(absPath);
 ***/		
 
-	//browser.pause();
-	//browser.debugger();
 		this.ContinueButton = element.all(by.tagName('button'));
 		this.ContinueButton.each(function(btn){
 			btn.getText().then(function(txt){
-				//console.log("TEXT "+txt);
 				if(txt == "Continue to Review"){
 					btn.click();
-					console.log("File Upload COMPLETED");
+					//console.log("File Upload COMPLETED");
 				}
 			}.bind(btn));
 		});
@@ -320,12 +300,10 @@ var SubmissionsPage = function(base_url){
 		this.ContinueButton = element.all(by.tagName('button'));
 		this.ContinueButton.each(function(btn){
 			btn.getText().then(function(txt){
-				//console.log("TEXT "+txt);
 				if(txt == "Confirm & Submit"){
 					browser.sleep(10000);
-//CHECK IF CLICKABLE
 					btn.click();
-					console.log("Review COMPLETED");
+					//console.log("Review COMPLETED");
 				}
 			}.bind(btn));
 		});
