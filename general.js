@@ -15,7 +15,6 @@ var SignoutPage = require('./signout.page');
 	var signin = new SigninPage(base_url);
 	var settings = new SettingsPage();
 	var submissions = new SubmissionsPage(base_url);
-//	var x = new XPage(base_url);
 	var signout = new SignoutPage(base_url);
 
 //SIGN IN
@@ -25,7 +24,6 @@ var SignoutPage = require('./signout.page');
         //expect(signin.submissionLink.getText()).toContain("submission");
 	});
 
-/****/
 	if(browser.params.perform=='settings'){
 		//CHANGE SETTINGS
 		it('should go to settings',function(){
@@ -34,24 +32,40 @@ var SignoutPage = require('./signout.page');
 		it('should set application settings',function(){
 			settings.applicationSettings();
 		});
-		it('should set organization settings',function(){
-			settings.organizationSettings();
-		});
-	}else{ // if(browser.params.perform=='submission'){
-		//CREATE SUBMISSION
+		//it('should set organization settings',function(){
+		//	settings.organizationSettings();
+		//});
+	}else if(browser.params.perform=='firstsubmission'){
+		//CREATE FIRST SUBMISSION
 		it('start/resume submissions',function(){
-//			submissions.startSubmissions();
-			submissions.resumeSubmissions();
-/**/
+			var orgName = null;
+			settings.gotoSettings();
+			orgName = settings.organizationSettings();
+
+			submissions.firstSubmissions(orgName);
+
 			submissions.enterPersonalData();
 			submissions.enterLicenseData();
 			submissions.enterDocumentData();
 			submissions.enterFileData();
 			submissions.reviewData();
-/**/
+		});
+	}else if(browser.params.perform=='submission'){
+		//CREATE SUBSEQUENT SUBMISSIONS
+		it('start/resume submissions',function(){
+			var orgName = null;
+			settings.gotoSettings();
+			orgName = settings.organizationSettings();
+
+			submissions.additionalSubmissions(orgName);
+
+			submissions.enterPersonalData();
+			submissions.enterLicenseData();
+			submissions.enterDocumentData();
+			submissions.enterFileData();
+			submissions.reviewData();
 		});
 	};
-/****/
 
 //SIGN OUT
 	it('should sign out',function(){

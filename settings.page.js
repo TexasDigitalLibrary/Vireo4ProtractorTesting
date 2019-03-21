@@ -46,7 +46,7 @@ var SettingsPage = function(){
 		//});
 		this.multSubmissionYes.click();
 		browser.sleep(1000);
-//FSS
+
 		this.degreeGrantingSchool.click();
 		this.degreeGrantingSchool.clear().sendKeys("Random Degree Granting School");
 		browser.sleep(1000);

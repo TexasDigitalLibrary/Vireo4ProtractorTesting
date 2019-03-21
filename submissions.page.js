@@ -6,7 +6,8 @@ var SubmissionsPage = function(base_url){
    	this.listOfInstitutions = element.all(by.css('.triptych-panel-entry'));
 
 
-	this.resumeSubmissions = function(){
+	this.additionalSubmissions = function(orgName){
+		console.log("ADDITIONAL SUB ORG NAME "+orgName);
 		var tmpObject = ""; 
    		browser.get(this.base_url);
 		this.resumeYourSubmission.isPresent().then(function(present){
@@ -22,18 +23,30 @@ var SubmissionsPage = function(base_url){
 				var newStartButton = element(by.buttonText('Start'));
 		        browser.executeScript("arguments[0].click();",newStartButton);
 
+				browser.sleep(5000);
    				this.listOfInstitutions = element.all(by.css('.triptych-panel-entry'));
-				this.listOfInstitutions.each(function(inst){
-					var sp = inst.all(by.tagName("span"));
-					sp.getText().then(function(spinst){
-            			console.log("INST "+spinst);
-					});
+//				this.listOfInstitutions.each(function(inst){
+//					var sp = inst.all(by.tagName("span"));
+//					sp.getText().then(function(spinst){
+//            			console.log("INST "+spinst);
+//					});
+//				});
+				browser.sleep(5000);
+
+//				this.listOfInstitutions.get(1).click();
+        		this.listOfInstitutions.each(function(suborg){
+					var sp = suborg.all(by.tagName("span"));
+					sp.getText().then(function(txt){
+						if(txt == orgName){
+							suborg.click();
+						}
+					}.bind(suborg));
 				});
-				this.listOfInstitutions.get(1).click();
+
+
 				browser.sleep(5000);
    				this.submitForm = element(by.tagName('form[name="newSubmission"]'));
    				this.submitForm.all(by.tagName('button')).get(0).click();
-				browser.sleep(5000);
 
 /***
 				var tableBody = element(by.tagName("tbody"));
@@ -67,7 +80,8 @@ var SubmissionsPage = function(base_url){
         console.log("ERROR");
 	};
 
-	this.startSubmissions = function(){
+	this.firstSubmissions = function(orgName){
+		console.log("FIRST SUB ORG NAME "+orgName);
 		var tmpObject = ""; 
    		browser.get(this.base_url);
 		this.startYourSubmission.isPresent().then(function(present){
@@ -135,9 +149,11 @@ var SubmissionsPage = function(base_url){
 	this.enterPersonalData = function(){
 		//chained promises seem to work - verify later
 		this.firstName = element(by.name('first_name'));
-		this.firstName.clear().sendKeys("Jethro");
+//		this.firstName.clear().sendKeys("Jethro");
+		this.firstName.clear().sendKeys(getRandomString(6));
 		this.lastName = element(by.name('last_name'));
-		this.lastName.clear().sendKeys("Bodine");
+		//this.lastName.clear().sendKeys("Bodine");
+		this.lastName.clear().sendKeys(getRandomString(6));
 		this.tdCollege = element(by.name('thesis.degree.college'));
 		this.tdCollege.clear().sendKeys("Oil and Gas Law");
 		this.tdDept = element(by.name('thesis.degree.department'));
@@ -350,6 +366,14 @@ var SubmissionsPage = function(base_url){
 		});
 	};
 
+    getRandomString = function(length){
+        var string = '';
+        var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        for (i = 0; i < length; i++) {
+            string += letters.charAt(Math.floor(Math.random() * letters.length));
+        }
+        return string;
+    }
 };
 
 module.exports = SubmissionsPage;
