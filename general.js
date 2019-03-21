@@ -32,9 +32,7 @@ var SignoutPage = require('./signout.page');
 		it('should set application settings',function(){
 			settings.applicationSettings();
 		});
-		//it('should set organization settings',function(){
-		//	settings.organizationSettings();
-		//});
+
 	}else if(browser.params.perform=='firstsubmission'){
 		//CREATE FIRST SUBMISSION
 		it('start/resume submissions',function(){
@@ -50,6 +48,7 @@ var SignoutPage = require('./signout.page');
 			submissions.enterFileData();
 			submissions.reviewData();
 		});
+
 	}else if(browser.params.perform=='submission'){
 		//CREATE SUBSEQUENT SUBMISSIONS
 		it('start/resume submissions',function(){

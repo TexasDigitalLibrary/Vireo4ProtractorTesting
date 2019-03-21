@@ -72,16 +72,15 @@ var SettingsPage = function(){
 		//this.instNameInput.submit();
 
 		this.multInstSubmissionYes = element.all(by.css('input[value=Yes]'));
-		this.multInstSubmissionYes.count().then(function(count){
-			//console.log("COUNT "+count);
-		});
+		//this.multInstSubmissionYes.count().then(function(count){
+		//	console.log("COUNT "+count);
+		//});
 		browser.sleep(1000);
 		this.multInstSubmissionYes.click();
 
         this.SaveButton = element.all(by.tagName('button'));
         this.SaveButton.each(function(btn){
             btn.getText().then(function(txt){
-                //console.log("FSS TEXT "+txt);
                 if(txt == "Save"){
                     btn.click();
                 }
