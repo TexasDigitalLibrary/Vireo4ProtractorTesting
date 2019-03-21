@@ -40,12 +40,15 @@ var SignoutPage = require('./signout.page');
 	}else{ // if(browser.params.perform=='submission'){
 		//CREATE SUBMISSION
 		it('start/resume submissions',function(){
-			submissions.startResumeSubmissions();
+//			submissions.startSubmissions();
+			submissions.resumeSubmissions();
+/**/
 			submissions.enterPersonalData();
 			submissions.enterLicenseData();
 			submissions.enterDocumentData();
 			submissions.enterFileData();
 			submissions.reviewData();
+/**/
 		});
 	};
 /****/

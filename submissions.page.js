@@ -5,11 +5,71 @@ var SubmissionsPage = function(base_url){
 	this.resumeYourSubmission = element(by.css('a[href*="submission/history"]'));
    	this.listOfInstitutions = element.all(by.css('.triptych-panel-entry'));
 
-//TANGLED CALLBACK MISERY - FIX LATER
-	this.startResumeSubmissions = function(){
+
+	this.resumeSubmissions = function(){
 		var tmpObject = ""; 
    		browser.get(this.base_url);
+		this.resumeYourSubmission.isPresent().then(function(present){
+			if(present){
+				console.log("RESUME SUBMISSION");
+				this.resumeYourSubmission = element(by.css('a[href*="submission/history"]'));
+        		browser.actions().mouseMove(this.resumeYourSubmission).perform();
+		        browser.executeScript("arguments[0].click();",this.resumeYourSubmission);
 
+				var newSubButton = element(by.buttonText('New Submission'));
+		        browser.executeScript("arguments[0].click();",newSubButton);
+				browser.sleep(1000);
+				var newStartButton = element(by.buttonText('Start'));
+		        browser.executeScript("arguments[0].click();",newStartButton);
+
+   				this.listOfInstitutions = element.all(by.css('.triptych-panel-entry'));
+				this.listOfInstitutions.each(function(inst){
+					var sp = inst.all(by.tagName("span"));
+					sp.getText().then(function(spinst){
+            			console.log("INST "+spinst);
+					});
+				});
+				this.listOfInstitutions.get(1).click();
+				browser.sleep(5000);
+   				this.submitForm = element(by.tagName('form[name="newSubmission"]'));
+   				this.submitForm.all(by.tagName('button')).get(0).click();
+				browser.sleep(5000);
+
+/***
+				var tableBody = element(by.tagName("tbody"));
+				var tableRows = tableBody.all(by.tagName("tr"));
+				var firstRowLinks = tableRows.get(0).all(by.tagName('a'));
+				firstRowLinks.each(function(frl){
+					frl.getText().then(function(frltext){
+						if(frltext == "View"){
+							//console.log("THESIS ALREADY SUBMITTED");
+   							var newSubmitButtonList = element.all(by.tagName('button'));
+							newSubmitButtonList.each(function(btn){
+								btn.getText().then(function(btntext){
+
+									console.log("BTNS "+btntext);
+
+//this can be used for detecting a 'New Submission' button when the only submission in the list is completely submitted
+//need to find way to follow a different path in general when the old submission is complete - return a value or set a global?
+								});
+							});
+							browser.sleep(1000);
+							process.exit();
+						}
+					}.bind(frl));
+				});
+***/
+			}
+		});
+		return tmpObject;
+	},
+    function(err){
+        console.log("ERROR");
+	};
+
+	this.startSubmissions = function(){
+		var tmpObject = ""; 
+   		browser.get(this.base_url);
 		this.startYourSubmission.isPresent().then(function(present){
 			if(present){
    				this.startYourSubmission = element(by.css('a[href*="submission/new"]'));
@@ -26,31 +86,18 @@ var SubmissionsPage = function(base_url){
    				this.submitForm = element(by.tagName('form[name="newSubmission"]'));
    				this.submitForm.all(by.tagName('button')).get(0).click();
 				tmpObject = "new";
+/****
 			}else{
 				this.resumeYourSubmission = element(by.css('a[href*="submission/history"]'));
 				this.resumeYourSubmission.isPresent().then(function(present){
 					if(present){
-						//console.log("RESUME SUBMISSION");
+						console.log("RESUME SUBMISSION");
 						this.resumeYourSubmission = element(by.css('a[href*="submission/history"]'));
 		        		browser.actions().mouseMove(this.resumeYourSubmission).perform();
 				        browser.executeScript("arguments[0].click();",this.resumeYourSubmission);
 
 						var tableBody = element(by.tagName("tbody"));
 						var tableRows = tableBody.all(by.tagName("tr"));
-						/***
-						tableRows.each(function(tr){
-							var tableRowCol = tr.all(by.tagName("td"));
-							tableRowCol.each(function(trc){
-								trc.getText().then(function(trctext){
-									console.log("CELL "+trctext);
-								});
-							});
-							var continueLink = tableBody.all(by.tagName("a"));
-							continueLink.get(0).click();
-							browser.sleep(1000);
-						});
-						***/
-						/***/
 						var firstRowLinks = tableRows.get(0).all(by.tagName('a'));
 						firstRowLinks.each(function(frl){
 							frl.getText().then(function(frltext){
@@ -71,12 +118,12 @@ var SubmissionsPage = function(base_url){
 								}
 							}.bind(frl));
 						});
-						/***/
 					}else{
 					}
 					//console.log("RESUME SUBMISSION DONE");
 				});
 				tmpObject = "resume";
+****/
 			}
 		});
 		return tmpObject;
@@ -86,7 +133,6 @@ var SubmissionsPage = function(base_url){
 	};
 
 	this.enterPersonalData = function(){
-		/**/
 		//chained promises seem to work - verify later
 		this.firstName = element(by.name('first_name'));
 		this.firstName.clear().sendKeys("Jethro");
@@ -99,21 +145,20 @@ var SubmissionsPage = function(base_url){
 
 //		this.tdDeg = element(by.name('thesis.degree.name'));
 //		this.tdDeg.clear().sendKeys("Master of Real Estate");
-/**
-        this.tdDegForm = element(by.id('thesis.degree.name'));
-        this.tdDegFormButton = this.tdDegForm.all(by.tagName('ul'));
-        this.tdDegFormButton.click();
-        browser.sleep(15000);
-        this.tdDegA = this.tdDeg.all(by.tagName('a'));
-        this.tdDegA.each(function(anchor){
-            anchor.getText().then(function(txt){
-                //console.log("ANCHOR TEXT "+txt);
-                if(txt == "Bachelor of Science"){
-                    anchor.click();
-                }
-            }.bind(anchor));
-        });
-**/
+
+//        this.tdDegForm = element(by.id('thesis.degree.name'));
+//        this.tdDegFormButton = this.tdDegForm.all(by.tagName('ul'));
+//        this.tdDegFormButton.click();
+//        browser.sleep(15000);
+//        this.tdDegA = this.tdDeg.all(by.tagName('a'));
+//        this.tdDegA.each(function(anchor){
+//            anchor.getText().then(function(txt){
+//                //console.log("ANCHOR TEXT "+txt);
+//                if(txt == "Bachelor of Science"){
+//                    anchor.click();
+//                }
+//            }.bind(anchor));
+//        });
 
 
 		this.tdMajor = element(by.name('thesis.degree.major'));
@@ -128,7 +173,6 @@ var SubmissionsPage = function(base_url){
 		this.tdEmail = this.tdEmailForm.all(by.tagName('input'));
 		this.tdEmail.get(0).clear().sendKeys("bodine@beverlyhills.com");
 		browser.sleep(1000);
-		/**/
 
 		this.ContinueButton = element.all(by.tagName('button'));
 		this.ContinueButton.each(function(btn){
@@ -145,7 +189,6 @@ var SubmissionsPage = function(base_url){
 	this.enterLicenseData = function(){
 		//console.log("LICENCE AGREEMENT");
 
-		/**/
 		this.licenceAgreement = element.all(by.tagName('label'));
 		this.licenceAgreement.each(function(liag){
 			liag.getText().then(function(txt){
@@ -164,7 +207,6 @@ var SubmissionsPage = function(base_url){
 				}
 			}.bind(liag));
 		});
-		/**/
 		this.ContinueButton = element.all(by.tagName('button'));
 		this.ContinueButton.each(function(btn){
 			btn.getText().then(function(txt){
@@ -179,7 +221,6 @@ var SubmissionsPage = function(base_url){
 
 	this.enterDocumentData = function(){
 		//console.log("DOCUMENT DATA");
-/*****/
 		this.titleInput = element(by.name('dc.title'));
 		this.titleInput.clear().sendKeys("Stuff I Learned");
 
@@ -260,7 +301,6 @@ var SubmissionsPage = function(base_url){
 		this.proquestEmbargos = element(by.id('proquest_embargos'));
 		this.proquestEmbargosList = this.proquestEmbargos.all(by.tagName('input[type="radio"]'));
 		this.proquestEmbargosList.get(1).click();
-/*****/
 
 		this.ContinueButton = element.all(by.tagName('button'));
 		this.ContinueButton.each(function(btn){
@@ -273,17 +313,17 @@ var SubmissionsPage = function(base_url){
 		});
 	};
 
+
 	this.enterFileData = function(){
-/***
-		this.fileInputForm = element(by.id('_doctype_primary'));
-		this.dropZone = this.fileInputForm.all(by.tagName('dropzone'));
-		this.dropZone.get(0).click();
-		browser.sleep(10000);
+//		this.fileInputForm = element(by.id('_doctype_primary'));
+//		this.dropZone = this.fileInputForm.all(by.tagName('dropzone'));
+//		this.dropZone.get(0).click();
+//		browser.sleep(10000);
+
 		//this.fileUp = element('input[type="file"]');
 		//var path = require('path');
 		//var absPath = path.resolve('/Users/s7728/Desktop/f1040.pdf');
 		//this.fileUp.sendKeys(absPath);
-***/		
 
 		this.ContinueButton = element.all(by.tagName('button'));
 		this.ContinueButton.each(function(btn){
