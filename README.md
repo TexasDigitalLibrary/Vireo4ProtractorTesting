@@ -70,12 +70,13 @@ Parameters to add:
 
 ```
 	--params.perform=settings
-		#settings: sign in, open vireo for submissions, create a randomly named institution, then sign out
-		#default: create a submission
+		#sign in, open vireo for submissions, then sign out
+
+	--params.perform=firstsubmission
+		#create a randomly named institution, create a first submission, then sign out
 
 	--params.perform=submission
-		#settings: sign in, open vireo for submissions, create a randomly named institution, then sign out
-		#default: create a submission
+		#create a randomly named institution, create a subsequent submission, then sign out
 ```
 
 
@@ -89,14 +90,16 @@ If the vireo4 instance you are testing is freshly installed and not open for sub
 > protractor conf.js --params.perform=settings
 
 
-After that, to create a new submission or resume one in progress, invoke without any perform settings;
+After that, to create a first new organization and submission;
+
+> protractor conf.js --params.perform=firstsubmission
+
+To create an organization and submission after the first one; 
 
 > protractor conf.js --params.perform=submission
 
-This will create a new submission or resume one in progress.  Currently all actions needed for completing a submission
-are performed except degreee selection and file upload.
 
-If the most recent submission is complete then the program will exit.
+This is necessary until the code can properly sense if a submission table already exists.
 
  
 

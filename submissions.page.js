@@ -6,7 +6,8 @@ var SubmissionsPage = function(base_url){
    	this.listOfInstitutions = element.all(by.css('.triptych-panel-entry'));
 
 
-	this.resumeSubmissions = function(){
+	this.additionalSubmissions = function(orgName){
+		console.log("ADDITIONAL SUB ORG NAME "+orgName);
 		var tmpObject = ""; 
    		browser.get(this.base_url);
 		this.resumeYourSubmission.isPresent().then(function(present){
@@ -22,43 +23,23 @@ var SubmissionsPage = function(base_url){
 				var newStartButton = element(by.buttonText('Start'));
 		        browser.executeScript("arguments[0].click();",newStartButton);
 
+				browser.sleep(1000);
    				this.listOfInstitutions = element.all(by.css('.triptych-panel-entry'));
-				this.listOfInstitutions.each(function(inst){
-					var sp = inst.all(by.tagName("span"));
-					sp.getText().then(function(spinst){
-            			console.log("INST "+spinst);
-					});
+				browser.sleep(1000);
+
+        		this.listOfInstitutions.each(function(suborg){
+					var sp = suborg.all(by.tagName("span"));
+					sp.getText().then(function(txt){
+						if(txt == orgName){
+							suborg.click();
+						}
+					}.bind(suborg));
 				});
-				this.listOfInstitutions.get(1).click();
-				browser.sleep(5000);
+
+
+				browser.sleep(1000);
    				this.submitForm = element(by.tagName('form[name="newSubmission"]'));
    				this.submitForm.all(by.tagName('button')).get(0).click();
-				browser.sleep(5000);
-
-/***
-				var tableBody = element(by.tagName("tbody"));
-				var tableRows = tableBody.all(by.tagName("tr"));
-				var firstRowLinks = tableRows.get(0).all(by.tagName('a'));
-				firstRowLinks.each(function(frl){
-					frl.getText().then(function(frltext){
-						if(frltext == "View"){
-							//console.log("THESIS ALREADY SUBMITTED");
-   							var newSubmitButtonList = element.all(by.tagName('button'));
-							newSubmitButtonList.each(function(btn){
-								btn.getText().then(function(btntext){
-
-									console.log("BTNS "+btntext);
-
-//this can be used for detecting a 'New Submission' button when the only submission in the list is completely submitted
-//need to find way to follow a different path in general when the old submission is complete - return a value or set a global?
-								});
-							});
-							browser.sleep(1000);
-							process.exit();
-						}
-					}.bind(frl));
-				});
-***/
 			}
 		});
 		return tmpObject;
@@ -67,7 +48,8 @@ var SubmissionsPage = function(base_url){
         console.log("ERROR");
 	};
 
-	this.startSubmissions = function(){
+	this.firstSubmissions = function(orgName){
+		console.log("FIRST SUB ORG NAME "+orgName);
 		var tmpObject = ""; 
    		browser.get(this.base_url);
 		this.startYourSubmission.isPresent().then(function(present){
@@ -86,44 +68,6 @@ var SubmissionsPage = function(base_url){
    				this.submitForm = element(by.tagName('form[name="newSubmission"]'));
    				this.submitForm.all(by.tagName('button')).get(0).click();
 				tmpObject = "new";
-/****
-			}else{
-				this.resumeYourSubmission = element(by.css('a[href*="submission/history"]'));
-				this.resumeYourSubmission.isPresent().then(function(present){
-					if(present){
-						console.log("RESUME SUBMISSION");
-						this.resumeYourSubmission = element(by.css('a[href*="submission/history"]'));
-		        		browser.actions().mouseMove(this.resumeYourSubmission).perform();
-				        browser.executeScript("arguments[0].click();",this.resumeYourSubmission);
-
-						var tableBody = element(by.tagName("tbody"));
-						var tableRows = tableBody.all(by.tagName("tr"));
-						var firstRowLinks = tableRows.get(0).all(by.tagName('a'));
-						firstRowLinks.each(function(frl){
-							frl.getText().then(function(frltext){
-								if(frltext == "View"){
-									//console.log("THESIS ALREADY SUBMITTED");
-   									var newSubmitButtonList = element.all(by.tagName('button'));
-									newSubmitButtonList.each(function(btn){
-										btn.getText().then(function(btntext){
-
-											//console.log("BTNS "+btntext);
-
-//this can be used for detecting a 'New Submission' button when the only submission in the list is completely submitted
-//need to find way to follow a different path in general when the old submission is complete - return a value or set a global?
-										});
-									});
-									browser.sleep(1000);
-									process.exit();
-								}
-							}.bind(frl));
-						});
-					}else{
-					}
-					//console.log("RESUME SUBMISSION DONE");
-				});
-				tmpObject = "resume";
-****/
 			}
 		});
 		return tmpObject;
@@ -135,9 +79,9 @@ var SubmissionsPage = function(base_url){
 	this.enterPersonalData = function(){
 		//chained promises seem to work - verify later
 		this.firstName = element(by.name('first_name'));
-		this.firstName.clear().sendKeys("Jethro");
+		this.firstName.clear().sendKeys(getRandomString(5));
 		this.lastName = element(by.name('last_name'));
-		this.lastName.clear().sendKeys("Bodine");
+		this.lastName.clear().sendKeys(getRandomString(8));
 		this.tdCollege = element(by.name('thesis.degree.college'));
 		this.tdCollege.clear().sendKeys("Oil and Gas Law");
 		this.tdDept = element(by.name('thesis.degree.department'));
@@ -146,27 +90,12 @@ var SubmissionsPage = function(base_url){
 //		this.tdDeg = element(by.name('thesis.degree.name'));
 //		this.tdDeg.clear().sendKeys("Master of Real Estate");
 
-//        this.tdDegForm = element(by.id('thesis.degree.name'));
-//        this.tdDegFormButton = this.tdDegForm.all(by.tagName('ul'));
-//        this.tdDegFormButton.click();
-//        browser.sleep(15000);
-//        this.tdDegA = this.tdDeg.all(by.tagName('a'));
-//        this.tdDegA.each(function(anchor){
-//            anchor.getText().then(function(txt){
-//                //console.log("ANCHOR TEXT "+txt);
-//                if(txt == "Bachelor of Science"){
-//                    anchor.click();
-//                }
-//            }.bind(anchor));
-//        });
-
-
 		this.tdMajor = element(by.name('thesis.degree.major'));
 		this.tdMajor.clear().sendKeys("Petroleum Engineering");
 		this.tdPhoneForm = element(by.id('permanent_phone'));
 		this.tdPhone = this.tdPhoneForm.all(by.tagName('input'));
 		this.tdPhone.get(0).clear().sendKeys("(785) 555-1212");
-		this.tdAddressForm = element(by.id('permanent_address'));//textarea[placeholder="Input Permanent Address"]'));
+		this.tdAddressForm = element(by.id('permanent_address'));
 		this.tdAddress = this.tdAddressForm.all(by.tagName('textarea'));
 		this.tdAddress.get(0).clear().sendKeys("123 fake street");
 		this.tdEmailForm = element(by.id('permanent_email'));
@@ -350,6 +279,14 @@ var SubmissionsPage = function(base_url){
 		});
 	};
 
+    getRandomString = function(length){
+        var string = '';
+        var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        for (i = 0; i < length; i++) {
+            string += letters.charAt(Math.floor(Math.random() * letters.length));
+        }
+        return string;
+    }
 };
 
 module.exports = SubmissionsPage;
