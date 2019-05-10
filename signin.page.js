@@ -12,9 +12,25 @@ var SigninPage = function(base_url){
    		this.signinLink.click();
 
         browser.sleep(2000);
-    	if(browser.params.signin=='account'){
+    	if((browser.params.account)&&(browser.params.password)){
+			console.log("ACCT "+browser.params.account+" PWD "+browser.params.password);
+			var json = require('./account.json');
+ 			this.userName = element(by.id('email'));
+ 			this.userPassword = element(by.id('userPassword'));
+			this.userName.click();
+     		this.userName.clear().sendKeys(browser.params.account);
+	       	this.userPassword.click();
+        	this.userPassword.clear().sendKeys(browser.params.password);
+        	browser.sleep(4000);
+ 			this.signinButton = element(by.buttonText('Login'));
+			browser.actions().mouseMove(this.signinButton).perform();
+			browser.executeScript("arguments[0].click();",this.signinButton);
+			browser.sleep(2000);
+	   	}else if(browser.params.signin=='account'){
+    	//if(browser.params.signin=='account'){
 			//Account signin
-			var json = require('./signin.json');
+			var json = require('./account.json');
+			console.log("ACCT "+json.email+" PWD "+json.pwd);
    			this.userName = element(by.id('email'));
    			this.userPassword = element(by.id('userPassword'));
 			this.userName.click();
@@ -28,6 +44,7 @@ var SigninPage = function(base_url){
 			browser.sleep(2000);
 		}else{
 			//Shibboleth signin
+			console.log("ACCT SHIBBOLETH");
 			browser.actions().mouseMove(this.shibButton).perform();
 			browser.executeScript("arguments[0].click();",this.shibButton);
 			browser.sleep(2000);

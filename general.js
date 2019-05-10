@@ -2,11 +2,11 @@
 var SigninPage = require('./signin.page');
 var SettingsPage = require('./settings.page');
 var SubmissionsPage = require('./submissions.page');
-//var XPage = require('./x.page');
 var SignoutPage = require('./signout.page');
 
   describe('Sign In', function() {
-	var base_url = "http://127.0.0.1:9000";
+	var base_url = "http://127.0.0.1:8080";
+	//var base_url = "http://127.0.0.1:9000";
 	//var base_url = "https://test-etd.tdl.org";
 	if(browser.params.baseurl!=null){
 		base_url = browser.params.baseurl;
@@ -24,6 +24,11 @@ var SignoutPage = require('./signout.page');
         //expect(signin.submissionLink.getText()).toContain("submission");
 	});
 
+	var orgName = "TEST";
+	if(browser.params.orgname){
+		orgName = browser.params.orgname;
+	}
+
 	if(browser.params.perform=='settings'){
 		//CHANGE SETTINGS
 		it('should go to settings',function(){
@@ -32,13 +37,21 @@ var SignoutPage = require('./signout.page');
 		it('should set application settings',function(){
 			settings.applicationSettings();
 		});
+//FSS
+		it('should set organization settings',function(){
+			settings.organizationSettings(orgName);
+		});
+//FSS
 
 	}else if(browser.params.perform=='firstsubmission'){
 		//CREATE FIRST SUBMISSION
 		it('start/resume submissions',function(){
-			var orgName = null;
-			settings.gotoSettings();
-			orgName = settings.organizationSettings();
+//FSS
+			//var orgName = null;
+			//settings.gotoSettings();
+			//orgName = settings.organizationSettings();
+//NEED A WAY TO GET ONE FROM LIST
+//FSS
 
 			submissions.firstSubmissions(orgName);
 
@@ -52,9 +65,13 @@ var SignoutPage = require('./signout.page');
 	}else if(browser.params.perform=='submission'){
 		//CREATE SUBSEQUENT SUBMISSIONS
 		it('start/resume submissions',function(){
-			var orgName = null;
-			settings.gotoSettings();
-			orgName = settings.organizationSettings();
+//FSS
+			//var orgName = null;
+			//settings.gotoSettings();
+			//orgName = settings.organizationSettings();
+//NEED A WAY TO GET ONE FROM LIST
+			var orgName = "PPLZI";
+//FSS
 
 			submissions.additionalSubmissions(orgName);
 

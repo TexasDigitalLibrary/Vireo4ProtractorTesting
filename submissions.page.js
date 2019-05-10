@@ -7,6 +7,7 @@ var SubmissionsPage = function(base_url){
 
 
 	this.additionalSubmissions = function(orgName){
+		//var delay_time = 1000;
 		console.log("ADDITIONAL SUB ORG NAME "+orgName);
 		var tmpObject = ""; 
    		browser.get(this.base_url);
@@ -19,7 +20,7 @@ var SubmissionsPage = function(base_url){
 
 				var newSubButton = element(by.buttonText('New Submission'));
 		        browser.executeScript("arguments[0].click();",newSubButton);
-				browser.sleep(1000);
+				browser.sleep(delay_time);
 				var newStartButton = element(by.buttonText('Start'));
 		        browser.executeScript("arguments[0].click();",newStartButton);
 
@@ -82,6 +83,10 @@ var SubmissionsPage = function(base_url){
 		this.firstName.clear().sendKeys(getRandomString(5));
 		this.lastName = element(by.name('last_name'));
 		this.lastName.clear().sendKeys(getRandomString(8));
+		this.orcid = element(by.name('local.etdauthor.orcid'));
+		this.orcid.clear().sendKeys('1111-2222-3333-4444');
+		this.tdSchool = element(by.name('school'));
+		this.tdSchool.clear().sendKeys("Old School");
 		this.tdCollege = element(by.name('thesis.degree.college'));
 		this.tdCollege.clear().sendKeys("Oil and Gas Law");
 		this.tdDept = element(by.name('thesis.degree.department'));
