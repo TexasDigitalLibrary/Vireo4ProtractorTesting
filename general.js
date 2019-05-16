@@ -7,7 +7,7 @@ var SignoutPage = require('./signout.page');
   describe('Sign In', function() {
 	var base_url = "http://127.0.0.1:8080";
 	//var base_url = "http://127.0.0.1:9000";
-	//var base_url = "https://test-etd.tdl.org";
+	//var base_url = "https://test-etd-clone.tdl.org";
 	if(browser.params.baseurl!=null){
 		base_url = browser.params.baseurl;
 	}

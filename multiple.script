@@ -1,3 +1,4 @@
+#!/bin/bash
 #Start vireo with 
 #	-Drun.arguments=console
 #When the vireo prompt appears enter 'accounts 15'
@@ -5,21 +6,12 @@
 
 protractor conf.js --params.perform=settings --params.orgname=MyOrgName
 
-protractor conf.js --params.account="test1@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test2@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test3@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test4@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test5@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test6@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test7@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test8@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test9@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test10@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test11@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test12@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test13@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test14@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-protractor conf.js --params.account="test15@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
+for acct in {1..5}
+do
+	echo $acct
+	protractor conf.js --params.account="student$acct@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
+	sleep 3
+done
 
-
+echo All Done
 
