@@ -21,6 +21,13 @@ Update and start the webdriver in one terminal.
   webdriver-manager update
   webdriver-manager start
 ```
+If it doesnt start or it downloads version 4.0.0-alpha-1 or something corrupted, instead do:
+	webdriver-manager clean
+	webdriver-manager update --standalone --versions.standalone=3.8.0
+	webdriver-manager start --versions.standalone=3.8.0
+
+According to https://stackoverflow.com/questions/55835805/invalid-or-corrupt-jar-file-when-trying-to-start-selenium-server-from-intellij
+
 
 
 Open another terminal window to run protractor.
@@ -58,6 +65,10 @@ Parameters to add:
 		"email":"[your_email_address]",
 		"pwd":"[your_vireo4_password_for_that_account]"
 	}
+```
+
+```
+	--params.account=test1@example.com --params.password=password
 ```
 
 ```

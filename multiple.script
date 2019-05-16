@@ -1,0 +1,17 @@
+#!/bin/bash
+#Start vireo with 
+#	-Drun.arguments=console
+#When the vireo prompt appears enter 'accounts 15'
+#	vireo> accounts 15
+
+protractor conf.js --params.perform=settings --params.orgname=MyOrgName
+
+for acct in {1..5}
+do
+	echo $acct
+	protractor conf.js --params.account="student$acct@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
+	sleep 3
+done
+
+echo All Done
+

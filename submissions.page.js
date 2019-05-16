@@ -4,6 +4,7 @@ var SubmissionsPage = function(base_url){
    	this.submitForm = element(by.tagName('form[name="newSubmission"]'));
 	this.resumeYourSubmission = element(by.css('a[href*="submission/history"]'));
    	this.listOfInstitutions = element.all(by.css('.triptych-panel-entry'));
+	var delay_time = 2000;
 
 
 	this.additionalSubmissions = function(orgName){
@@ -19,13 +20,13 @@ var SubmissionsPage = function(base_url){
 
 				var newSubButton = element(by.buttonText('New Submission'));
 		        browser.executeScript("arguments[0].click();",newSubButton);
-				browser.sleep(1000);
+				browser.sleep(delay_time);
 				var newStartButton = element(by.buttonText('Start'));
 		        browser.executeScript("arguments[0].click();",newStartButton);
 
-				browser.sleep(1000);
+				browser.sleep(delay_time);
    				this.listOfInstitutions = element.all(by.css('.triptych-panel-entry'));
-				browser.sleep(1000);
+				browser.sleep(delay_time);
 
         		this.listOfInstitutions.each(function(suborg){
 					var sp = suborg.all(by.tagName("span"));
@@ -37,7 +38,7 @@ var SubmissionsPage = function(base_url){
 				});
 
 
-				browser.sleep(1000);
+				browser.sleep(delay_time);
    				this.submitForm = element(by.tagName('form[name="newSubmission"]'));
    				this.submitForm.all(by.tagName('button')).get(0).click();
 			}
@@ -81,7 +82,12 @@ var SubmissionsPage = function(base_url){
 		this.firstName = element(by.name('first_name'));
 		this.firstName.clear().sendKeys(getRandomString(5));
 		this.lastName = element(by.name('last_name'));
-		this.lastName.clear().sendKeys(getRandomString(8));
+		var lastName = getRandomString(8);
+		this.lastName.clear().sendKeys(lastName);
+		this.orcid = element(by.name('local.etdauthor.orcid'));
+		this.orcid.clear().sendKeys('1111-2222-3333-4444');
+		this.tdSchool = element(by.name('school'));
+		this.tdSchool.clear().sendKeys("Old School");
 		this.tdCollege = element(by.name('thesis.degree.college'));
 		this.tdCollege.clear().sendKeys("Oil and Gas Law");
 		this.tdDept = element(by.name('thesis.degree.department'));
@@ -100,8 +106,8 @@ var SubmissionsPage = function(base_url){
 		this.tdAddress.get(0).clear().sendKeys("123 fake street");
 		this.tdEmailForm = element(by.id('permanent_email'));
 		this.tdEmail = this.tdEmailForm.all(by.tagName('input'));
-		this.tdEmail.get(0).clear().sendKeys("bodine@beverlyhills.com");
-		browser.sleep(1000);
+		this.tdEmail.get(0).clear().sendKeys(lastName+"@example.com");
+		browser.sleep(delay_time);
 
 		this.ContinueButton = element.all(by.tagName('button'));
 		this.ContinueButton.each(function(btn){
@@ -112,7 +118,7 @@ var SubmissionsPage = function(base_url){
 				}
 			}.bind(btn));
 		});
-		browser.sleep(1000);
+		browser.sleep(delay_time);
 	};
 
 	this.enterLicenseData = function(){
@@ -145,7 +151,7 @@ var SubmissionsPage = function(base_url){
 				}
 			}.bind(btn));
 		});
-		browser.sleep(1000);
+		browser.sleep(delay_time);
 	};
 
 	this.enterDocumentData = function(){
@@ -156,7 +162,7 @@ var SubmissionsPage = function(base_url){
 		this.tdDegDateForm = element(by.id('dc.date.created'));
 		this.tdDegDateInput = this.tdDegDateForm.all(by.tagName('input'));
 		this.tdDegDateInput.get(0).click();
-		browser.sleep(2000);
+		browser.sleep(2*delay_time);
 		var tdDegDateTable = element(by.css('table[role="grid"]'));
 		var tdDegDateBtn = tdDegDateTable.all(by.tagName('button'));
 		tdDegDateBtn.each(function(btn){
@@ -166,7 +172,7 @@ var SubmissionsPage = function(base_url){
 					if(txt == "December"){
         				browser.actions().mouseMove(btn).perform();
 		       	 		browser.executeScript("arguments[0].click();",btn);
-						browser.sleep(1000);
+						browser.sleep(delay_time);
 					}
 				}.bind(btn));
 				}
@@ -175,7 +181,7 @@ var SubmissionsPage = function(base_url){
 		this.submType = element(by.id('submission_type'));
 		this.submTypeDD = this.submType.all(by.css('.dropdown-toggle-button'));
 		this.submTypeDD.click();
-		browser.sleep(1000);
+		browser.sleep(delay_time);
 		this.submTypeA = this.submType.all(by.tagName('a'));
 		this.submTypeA.each(function(anchor){
 			anchor.getText().then(function(txt){
@@ -201,7 +207,7 @@ var SubmissionsPage = function(base_url){
 		this.commChair = element(by.id('dc.contributor.advisor'));
 		this.commChairDD = this.commChair.all(by.css('.dropdown-toggle-button'));
 		this.commChairDD.click();
-		browser.sleep(1000);
+		browser.sleep(delay_time);
 		this.commChairA = this.commChair.all(by.tagName('a'));
 		this.commChairA.each(function(anchor){
 			anchor.getText().then(function(txt){
@@ -215,7 +221,7 @@ var SubmissionsPage = function(base_url){
 		var nonChairI = this.nonChair.all(by.tagName('input'));
 		nonChairI.each(function(inp){
 			//console.log("NON COMM CHAIR INP");
-			browser.sleep(1000);
+			browser.sleep(delay_time);
 		});
 		nonChairI.get(0).clear().sendKeys("Eddie Ed Exciting");
 		nonChairI.get(0).click();
@@ -247,7 +253,7 @@ var SubmissionsPage = function(base_url){
 //		this.fileInputForm = element(by.id('_doctype_primary'));
 //		this.dropZone = this.fileInputForm.all(by.tagName('dropzone'));
 //		this.dropZone.get(0).click();
-//		browser.sleep(10000);
+//		browser.sleep(10*delay_time);
 
 		//this.fileUp = element('input[type="file"]');
 		//var path = require('path');
@@ -271,7 +277,7 @@ var SubmissionsPage = function(base_url){
 		this.ContinueButton.each(function(btn){
 			btn.getText().then(function(txt){
 				if(txt == "Confirm & Submit"){
-					browser.sleep(10000);
+					browser.sleep(10*delay_time);
 					btn.click();
 					//console.log("Review COMPLETED");
 				}

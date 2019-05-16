@@ -53,12 +53,14 @@ var SettingsPage = function(){
 		this.degreeGrantingSchool.submit();
 	};
 
-	this.organizationSettings = function(){
+	this.organizationSettings = function(orgName){
 		this.orgNameInput = element(by.css('input[id=sidebox-organization-name]'));
 		this.awoMenu.get(2).click();
 		browser.sleep(1000);
 		this.orgNameInput.click();
-		var orgName = getRandomString(5);
+		if(!orgName){
+			orgName = getRandomString(5);
+		}
 		this.orgNameInput.sendKeys(orgName);
 		browser.sleep(1000);
 		this.orgNameInput.submit();
