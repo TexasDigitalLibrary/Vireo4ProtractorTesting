@@ -86,7 +86,7 @@ var SubmissionsPage = function(base_url){
 		this.lastName.clear().sendKeys(lastName);
 		this.orcid = element(by.name('local.etdauthor.orcid'));
 		this.orcid.clear().sendKeys('1111-2222-3333-4444');
-		this.tdSchool = element(by.name('school'));
+		this.tdSchool = element(by.name('thesis.degree.school'));
 		this.tdSchool.clear().sendKeys("Old School");
 		this.tdCollege = element(by.name('thesis.degree.college'));
 		this.tdCollege.clear().sendKeys("Oil and Gas Law");
