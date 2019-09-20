@@ -4,10 +4,10 @@
 #When the vireo prompt appears enter 'accounts 15'
 #	vireo> accounts 1
 
-protractor conf.js --params.perform=settings --params.orgname=MyOrgName
+#protractor conf.js --params.perform=settings --params.orgname=MyOrgName
 
-protractor conf.js --params.account="student1@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
-#protractor conf.js --params.account="student1@example.com" --params.password="password" --params.perform=submission --params.orgname=MyOrgName
+#protractor conf.js --params.account="student1@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
+protractor conf.js --params.account="student2@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName
 
 #protractor conf.js --params.account="student2@example.com" --params.password="password" --params.perform=firstsubmission --params.orgname=MyOrgName &
 
